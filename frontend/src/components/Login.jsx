@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "../utils/axios"; // uses axiosInstance with baseURL + cookies
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -55,6 +55,13 @@ const Login = () => {
         </button>
 
         <p className="text-center text-sm text-gray-600">{message}</p>
+
+        <p className="text-center text-sm text-blue-600">
+          Don't have an account?{" "}
+          <Link to="/register" className="underline text-blue-800 hover:text-blue-600">
+            Register
+          </Link>
+        </p>
       </form>
     </div>
   );
