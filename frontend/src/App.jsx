@@ -5,6 +5,7 @@ import Register from './components/Register'
 import Dashboard from './pages/Dashboard'
 import CreateTask from './pages/CreateTask'
 import EditTask from './pages/EditTask'
+import ProtectedRoute from './Middleware/ProtectedRoute'
 
 const App = () => {
   return (
@@ -12,9 +13,9 @@ const App = () => {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Dashboard />} />
-        <Route path="create-task" element={<CreateTask />} />
-        <Route path='edit-task/:id' element={<EditTask />} />
+        <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="create-task" element={<ProtectedRoute><CreateTask /></ProtectedRoute>} />
+        <Route path='edit-task/:id' element={<ProtectedRoute><EditTask /></ProtectedRoute>} />
       </Routes>
     </div>
   )

@@ -17,7 +17,7 @@ const Login = () => {
       const res = await axios.post("/auth/login", { email, password });
       console.log(res.data);
       setMessage("Login successful");
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
       console.error(error);
       setMessage(error.response?.data?.message || "Login failed");

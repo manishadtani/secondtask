@@ -11,12 +11,22 @@ const Dashboard = () => {
   const fetchTasks = async () => {
     try {
       const res = await axios.get("/tasks");
+      console.log("Fetched data: ", res.data);
       setTasks(res.data.tasks);
     } catch (err) {
       console.error(err);
       setError("Failed to fetch tasks. Please login.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("/auth/logout"); // 🔐 Call logout API
+      navigate("/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
     }
   };
 
@@ -40,12 +50,20 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gradient-to-tr from-blue-100 to-blue-200 p-4 sm:p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold text-blue-800">📋 Your Tasks</h2>
-        <button
-          onClick={() => navigate("/create-task")}
-          className="bg-blue-700 hover:bg-blue-800 transition-colors text-white px-4 py-2 rounded-lg shadow-md"
-        >
-          + Create Task
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => navigate("/create-task")}
+            className="bg-blue-700 hover:bg-blue-800 transition-colors text-white px-4 py-2 rounded-lg shadow-md"
+          >
+            + Create Task
+          </button>
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-700 transition-colors text-white px-4 py-2 rounded-lg shadow-md"
+          >
+            🔒 Logout
+          </button>
+        </div>
       </div>
 
       {loading ? (
