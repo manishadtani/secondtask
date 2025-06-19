@@ -22,7 +22,7 @@ const Register = () => {
       });
       console.log(res.data);
       setMessage("Registration successful!");
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       console.error(err);
       setMessage(err.response?.data?.message || "Registration failed");
