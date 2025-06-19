@@ -1,16 +1,14 @@
-// src/components/ProtectedRoute.jsx
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "../utils/axios";
-import Dashboard from "../pages/Dashboard";
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ children }) => {
   const [auth, setAuth] = useState(null);
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("/tasks");
+        await axios.get("/tasks"); // Dummy auth check
         setAuth(true);
       } catch (err) {
         setAuth(false);
@@ -20,10 +18,11 @@ const ProtectedRoute = () => {
   }, []);
 
   if (auth === null) return <p>Checking authentication...</p>;
-  console.log("Protected Route triggered");
-   console.log("Auth state:", auth);
 
-  return auth ?  <Dashboard /> : <Navigate to="/login" replace />;
+  console.log("Protected Route triggered");
+  console.log("Auth state:", auth);
+
+  return auth ? children : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoute;
